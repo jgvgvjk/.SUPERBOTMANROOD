@@ -32,7 +32,7 @@ client.on('ready', () => {
 
 
 client.on('ready', () => {
-    client.user.setGame(`In ${client.guilds.size} Servers use -help |-inv `, "http://twitch.tv/Streammingg")	
+    client.user.setGame(`In ${client.guilds.size} Servers use -help | `, "http://twitch.tv/Streammingg")	
 });
 
 
