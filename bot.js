@@ -1150,7 +1150,7 @@ message.react("??")
              client.on('message', message => {
                 if(message.content === prefix + "inv") {
                     let embed = new Discord.RichEmbed ()
-                    embed.setTitle("**:arrow_right: Click To Invite DK BOT :arrow_left:**")
+                    embed.setTitle("**:arrow_right: Click To Invite Super BOT :arrow_left:**")
                     .setURL("https://discordapp.com/api/oauth2/authorize?client_id=460498806052487178&permissions=2146958583&scope=bot");
                    message.channel.sendEmbed(embed);
                   }
@@ -1191,7 +1191,7 @@ client.on('message', message => {
 
 client.on('message', message => {
   if (!message.content.startsWith(prefix)) return;
-  const verifed = ["431126009329352706"];
+  const verifed = ["371696327005831169"];
 if (message.content.startsWith(prefix + 'ownerbot')) {
 if( verifed.some(word => message.author.id.includes(word)) ) {    return message.channel.sendMessage(`**   جا صاحب البوت هنا الكل يوقف**` + `✅`)
 } else {
