@@ -11,7 +11,6 @@ var fUserId;
 var Active_Giveaway = "false";
 var entryCount = 0;
 const prefix = "-";
-let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
 client.on('ready', () => {
   console.log('╔[════════════════════════════════════]╗');
   console.log('')
