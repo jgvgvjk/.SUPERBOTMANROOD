@@ -32,7 +32,7 @@ client.on('ready', () => {
 
 
 client.on('ready', () => {
-    client.user.setGame(`In ${client.guilds.size} Servers | use -help`, "http://twitch.tv/Streammingg")	
+    client.user.setGame(`In ${client.guilds.size} Servers use -help |-inv `, "http://twitch.tv/Streammingg")	
 });
 
 
@@ -1151,8 +1151,7 @@ message.react("??")
                 if(message.content === prefix + "inv") {
                     let embed = new Discord.RichEmbed ()
                     embed.setTitle("**:arrow_right: Click To Invite DK BOT :arrow_left:**")
-                    .setURL("https://discordapp.com/api/oauth2/authorize?client_id=460498806052487178&permissions=2146958583&scope=bot
-                    ");
+                    .setURL("https://discordapp.com/api/oauth2/authorize?client_id=460498806052487178&permissions=2146958583&scope=bot");
                    message.channel.sendEmbed(embed);
                   }
 });
