@@ -1384,7 +1384,7 @@ omar.reply("`تم حذف جميع الرتب بنجاح`")
 
 
 
-
+var prefix = "-";
 client.on('message', async message => {
    if(message.content.startsWith(prefix + "-credits")) {
  let args = message.content.split(' ').slice(1);
@@ -1404,8 +1404,10 @@ var user = message.mentions.users.first() || message.author;
 
 }
 });
+
+var prefix = "-";
 client.on('message', async message => {
-   if(message.content.startsWith(prefix + "-daily")) {
+   if(message.content.startsWith(prefix + "daily")) {
     let cooldown = 8.64e+7,
     amount = 7000000
 
