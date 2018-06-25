@@ -416,7 +416,7 @@ let v1 = new Discord.RichEmbed()
   v1.setTimestamp(new Date())
   v1.setColor("RED")
   v1.setDescription('***__ Collecting Data __***')
-  v1.setFooter("# | DK Bot |") 
+  v1.setFooter("# | Super Bot |") 
 let heroo = new Discord.RichEmbed()
 .setColor('RANDOM')
 .setTimestamp(new Date())
@@ -430,7 +430,7 @@ let heroo = new Discord.RichEmbed()
 .addField("MyID :","**[ "+client.user.id+" ]**",true)
 .addField("RamUsage :",`**[ ${(process.memoryUsage().rss / 1048576).toFixed()}MB ]**`,true)
 .addField("UpTime :",`**[** **Days:** \`${days}\` **Hours:** \`${hours}\` **Minutes:** \`${minutes}\` **Seconds:** \`${seconds}\` **]**`,true)
-.setFooter(" DK . |")
+.setFooter(" Super Bot . |")
   message.channel.send({embed:v1}).then(m => m.edit({embed:heroo})),ms; 
     }
 });
