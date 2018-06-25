@@ -1415,14 +1415,6 @@ channel.send({embed : embed});
 
 
 
-client.on('guildCreate', guild => {
-  client.channels.get("458018991370272801").send(`**Woops new server ✅
-Server name: __${guild.name}__
-Server owner: __${guild.owner}__**`)
-});
-
-
-
 
 
 
