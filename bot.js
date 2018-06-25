@@ -1408,9 +1408,8 @@ var user = message.mentions.users.first() || message.author;
 
 
 const db = require('quick.db')
-const prefix = '-';
 client.on('message', async message => {
-   if(message.content.startsWith(prefix + "credits")) {
+   if(message.content.startsWith(prefix + "-credits")) {
  let args = message.content.split(' ').slice(1);
 
 var user = message.mentions.users.first() || message.author;
@@ -1430,9 +1429,9 @@ var user = message.mentions.users.first() || message.author;
 });
 const ms = require('ms')
 client.on('message', async message => {
-   if(message.content.startsWith(prefix + "daily")) {
+   if(message.content.startsWith(prefix + "-daily")) {
     let cooldown = 8.64e+7,
-    amount = 250
+    amount = 7000000
 
     let lastDaily = await db.fetch(`lastDaily_${message.author.id}`)
     try {
