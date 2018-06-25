@@ -1385,7 +1385,6 @@ omar.reply("`تم حذف جميع الرتب بنجاح`")
 
 
 
-const db = require('quick.db')
 client.on('message', async message => {
    if(message.content.startsWith(prefix + "-credits")) {
  let args = message.content.split(' ').slice(1);
