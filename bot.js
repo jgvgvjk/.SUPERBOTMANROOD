@@ -36,10 +36,7 @@ client.on('ready', () => {
 });
 
 
-client.on('message', msg => {
-  if(msg.content === 'هلا')
-  msg.reply('هلا بيك حبي')
-});
+
 
 
 client.on('message', msg => {
