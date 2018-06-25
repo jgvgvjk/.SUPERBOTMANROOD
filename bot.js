@@ -214,7 +214,7 @@ client.on('message', msg => {
 
     
  client.on("guildMemberAdd", member => {
-let welcomer = member.guild.channels.find("name","");
+let welcomer = member.guild.channels.find("name","『welcome』");
       if(!welcomer) return;
       if(welcomer) {
          moment.locale('ar-ly');
@@ -1218,7 +1218,7 @@ client.on('message', message => {
 :white_small_square:  ( اوامر الادارة***
 **
 للترحيب و للمغادرة اعمل شات اسمه
-:arrow_right:  welcome and left
+:arrow_right:  『welcome』 and 『left』
 
 لجعل البوت يقوم بعمل لوق قم بانشاء غرفة اسمه 
 :arrow_right:  log
@@ -1490,7 +1490,7 @@ client.on('guildMemberRemove', member => {
     .setColor('RED')
     .setFooter(`SUPER BOT`, '')
 
-var channel =member.guild.channels.find('name', 'left')
+var channel =member.guild.channels.find('name', '『left』')
 if (!channel) return;
 channel.send({embed : embed});
 });
