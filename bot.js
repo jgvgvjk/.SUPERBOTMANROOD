@@ -1181,6 +1181,7 @@ client.on('message', message => {
 :small_blue_diamond:  لدعوة البوت لسيرفرك
 -inv
 :two_men_holding_hands:  لطلب الزواج هههه
+الرجاء عدم استخدام الامر لانه غير مكتمل و يطفئ البوت
 -marry
 :small_blue_diamond:  معلومات الشخص
 -id
