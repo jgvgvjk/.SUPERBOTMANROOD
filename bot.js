@@ -581,6 +581,9 @@ client.on ("guildMemberAdd", member => {
   
 })
 
+const role = message.guild.roles.find('name', '『HELPER』');
+guildMember.addRole(role);
+
 
 
 
