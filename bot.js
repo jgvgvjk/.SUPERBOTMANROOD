@@ -1445,57 +1445,64 @@ var download = function(uri, filename, callback) {
     });
 };
 
-client.on('message', function(message) {
-    const member = message.member;
-    const mess = message.content.toLowerCase();
-    const args = message.content.split(' ').slice(1).join(' ');
+const db = require('quick.db')
+const prefix = '-';
+client.on('message', async message => {
+   if(message.content.startsWith(prefix + "credits")) {
+ let args = message.content.split(' ').slice(1);
 
-    if (mess.startsWith(prefix + 'play')) {
-        if (!message.member.voiceChannel) return message.channel.send(':no_entry: || **__يجب ان تكون في روم صوتي__**');
-        // if user is not insert the URL or song title
-        if (args.length == 0) {
-            let play_info = new Discord.RichEmbed()
-                .setAuthor(client.user.username, client.user.avatarURL)
-                .setFooter('طلب بواسطة: ' + message.author.tag)
-                .setDescription('**قم بإدراج رابط او اسم الأغنيه**')
-            message.channel.sendEmbed(play_info)
-            return;
-        }
-        if (queue.length > 0 || isPlaying) {
-            getID(args, function(id) {
-                add_to_queue(id);
-                fetchVideoInfo(id, function(err, videoInfo) {
-                    if (err) throw new Error(err);
-                    let play_info = new Discord.RichEmbed()
-                        .setAuthor(client.user.username, client.user.avatarURL)
-                        .addField('تمت إضافةالاغنيه بقائمة الإنتظار', `**
-                          ${videoInfo.title}
-                          **`)
-                        .setColor("#a637f9")
-                        .setFooter('|| ' + message.author.tag)
-                        .setThumbnail(videoInfo.thumbnailUrl)
-                    message.channel.sendEmbed(play_info);
-                    queueNames.push(videoInfo.title);
-                    now_playing.push(videoInfo.title);
+var user = message.mentions.users.first() || message.author;
+        
+        var balance = await db.fetch(`userBalance_${user.id}`)
+        
+        if (balance === null) balance = 50;
+        
+        var embed = new Discord.RichEmbed()
+        .setTitle('Coin Balance')
+        .setDescription(`${user.username}, **your balance:\n:dollar: $${balance}**`)
+        .setColor('#ffffff')
+        .setFooter('Requested By ' + message.author.tag, message.author.avatarURL)
+        message.channel.send(embed)
 
-                });
-            });
-        }
-        else {
+}
+});
+const ms = require('ms')
+const prefix = '-';
+client.on('message', async message => {
+   if(message.content.startsWith(prefix + "daily")) {
+    let cooldown = 8.64e+7,
+    amount = 70000000
 
-            isPlaying = true;
-            getID(args, function(id) {
-                queue.push('placeholder');
-                playMusic(id, message);
-                fetchVideoInfo(id, function(err, videoInfo) {
-                    if (err) throw new Error(err);
-                    let play_info = new Discord.RichEmbed()
-                        .setAuthor(client.user.username, client.user.avatarURL)
-                        .addField('__**تم التشغيل ✅**__', `**${videoInfo.title}
-                              **`)
-                        .setColor("RANDOM")
-                        .addField(`بواسطه`, message.author.username)
-                        .setThumbnail(videoInfo.thumbnailUrl)
+    let lastDaily = await db.fetch(`lastDaily_${message.author.id}`)
+    try {
+    db.fetch(`userBalance_${message.member.id}`).then(bucks => {
+    if(bucks == null){
+        db.set(`userBalance_${message.member.id}`, 50)}
+
+    else if (lastDaily !== null && cooldown - (Date.now() - lastDaily) > 0) {
+        let timeObj = ms(cooldown - (Date.now() - lastDaily))
+
+        let lastDailyEmbed = new Discord.RichEmbed()
+        .setAuthor(`Next Daily`)
+        .setColor('#ffffff')
+        .setDescription(`You sucessfully collected this, you must wait to collect next dily. Time Left: **${timeObj}**!`)
+        .setFooter('Requested By ' + message.author.tag, message.author.avatarURL)
+        message.channel.send(lastDailyEmbed)
+    } else {
+        db.set(`lastDaily_${message.author.id}`, Date.now());
+        db.add(`userBalance_${message.member.id}`, amount).then(i => {
+          var discord = require('discord.js')
+          var embed = new Discord.RichEmbed()
+          .setTitle('Todays Daily')
+          .setDescription(`Sucessfully collected :dollar:$${amount}`)
+          .setColor('#ffffff')
+          .setFooter('Requested By ' + message.author.tag, message.author.avatarURL)
+          message.channel.send(embed);
+        })}
+    })} catch(err) {console.log(err)}
+}
+});
+
 
 
 
