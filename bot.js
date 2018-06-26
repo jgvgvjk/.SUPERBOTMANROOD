@@ -1146,6 +1146,36 @@ client.on('message', message => {
 
 ***-------------------------------***
 
+كود انشاء الرتب ادا كنتت توك سويت سيرفرك
+-newroles
+
+لراية عدد الدعوات الخاصة بك اكتب
+-invites
+
+لاعطاء ميوت ماقة
+
+-tempmute
+
+لفك البان عن شخص
+
+-unban
+
+لاعطاء بان مافت
+
+-tempban
+
+لانشاء الرومات لو كنت قد لم تنشاء روما واحد يمكن استخدام امر
+
+-setrooms
+
+لتحويل الكل الى رومك الصوتي
+
+-moves
+
+كود اضافة رول في السيرفر
+
+-arole
+
 :white_small_square: ( الاوامر العامة***
 **
 :small_orange_diamond:  لفتح المصحف
@@ -1388,6 +1418,261 @@ client.on('message', message => {
   }
   });
  
+
+
+client.on('message', message => {
+  var prefix = "-"
+   if(message.content.startsWith(prefix + "invites")) {
+    message.guild.fetchInvites().then(invs => {
+      let user = message.mentions.users.first() || message.author
+      let personalInvites = invs.filter(i => i.inviter.id === user.id);
+      let inviteCount = personalInvites.reduce((p, v) => v.uses + p, 0);
+message.channel.send(`${user} has ${inviteCount} invites.`);
+});
+  }
+});
+
+
+client.on('message' , message => {
+    var prefix = "-";
+    let user = message.mentions.users.first()|| client.users.get(message.content.split(' ')[1])
+    if(message.content.startsWith(prefix + 'unban')) {
+        if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('❌|**\`ADMINISTRATOR\`لا توجد لديك رتبة`**');
+        if(!user) return  message.channel.send(`Do this ${prefix} <@ID user> \n or \n ${prefix}unban ID user`);
+        message.guild.unban(user);
+        message.guild.owner.send(`لقد تم فك الباند عن الشخص \n ${user} \n By : <@${message.author.id}>`)
+        var embed = new Discord.RichEmbed()
+        .setThumbnail(message.author.avatarURl)
+        .setColor("RANDOM")
+        .setTitle('**●Unban** !')
+        .addField('**●User Unban :** ', `${user}` , true)
+        .addField('**●By :**' ,       ` <@${message.author.id}> ` , true)
+        .setAuthor(message.guild.name)
+        message.channel.sendEmbed(embed)
+    }
+});
+
+
+client.on('message', async message => {
+  var prefix = "-";
+    let date = moment().format('Do MMMM YYYY , hh:mm');
+    let User = message.mentions.users.first();
+    let Reason = message.content.split(" ").slice(3).join(" ");
+    let messageArray = message.content.split(" ");
+    let time = messageArray[2];
+    if(message.content.startsWith(prefix + "tempban")) {
+       if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.channel.send("**- You don't have the needed permissions!**");
+       if(!User) message.channel.send("**- Mention someone!**");
+       if(User.id === client.user.id) return message.channel.send("**- You cannot ban me!**");
+       if(User.id === message.guild.owner.id) return message.channel.send("**- You cannot ban the owner of the server!**");
+       if(!time) return message.channel.send("**- Supply a duration!**");
+       if(!time.match(/[1-7][s,m,h,d,w]/g)) return message.channel.send('**- Supply a real time!**');
+       if(!Reason) message.channel.send("**- Supply a reason!**");
+       let banEmbed = new Discord.RichEmbed()
+       .setAuthor(`You have been banned from ${message.guild.name} !`)
+       .setThumbnail(message.guild.iconURL || message.guild.avatarURL)
+       .addField('- Banned By: ',message.author.tag,true)
+       .addField('- Reason:',Reason,true)
+       .addField('- Banned At:',date,true)
+       .addField('- Duration:',time,true)
+       .setFooter(message.author.tag,message.author.avatarURL);
+       User.sendMessage({embed: banEmbed}).then(() => message.guild.member(User).ban({reason: Reason}))
+       .then(() => message.channel.send(`**# Done! I banned: ${User}**`)).then(() => { setTimeout(() => {
+           message.guild.unban(User);
+       }, mmss(time));
+    });
+   } 
+});
+
+
+client.on("message", message => {
+    var prefix = "-"
+    if (!message.content.startsWith(prefix)) return;
+      let command = message.content.split(" ")[0];
+      command = command.slice(prefix.length);
+        if(command === "mc3d") {
+                const args = message.content.split(" ").slice(1).join(" ")
+        if (!args) return message.channel.send("** Type your skin name **");
+        const image = new Discord.Attachment(`https://visage.surgeplay.com/full/256/${args}`, "skin.png");
+    message.channel.send(image)
+        }
+    }); //by Viper
+
+
+client.on('message', async message => {
+  var prefix = "-";
+    let muteReason = message.content.split(" ").slice(3).join(" ");
+    let mutePerson = message.mentions.users.first();
+    let messageArray = message.content.split(" ");
+    let muteRole = message.guild.roles.find(r => r.name === 'Muted');
+    let time = messageArray[2];
+    if(message.content.startsWith(prefix + "tempmute")) {
+        if(!message.guild.member(message.author).hasPermission("MANAGE_ROLES")) return message.channel.send('**- You don\'t have the needed permissions!**');
+        if(!mutePerson) return message.channel.send("**- Mention someone!**");
+        if(mutePerson === message.author) return message.channel.send('**- You cannot mute yourself!**');
+        if(mutePerson === client.user) return message.channel.send('**- You cannot mute me!**');
+        if(message.guild.member(mutePerson).roles.has(muteRole.id)) return message.channel.send('**- This person is already muted!**');
+        if(!muteRole) return message.guild.createRole({ name: "Muted", permissions: [] });
+        if(!time) return message.channel.send("**- Supply a time!**");
+        if(!time.match(/[1-7][s,m,h,d,w]/g)) return message.channel.send('**- Supply a real time!**');
+        if(!muteReason) return message.channel.send("**- Supply a reason!**");
+        message.guild.channels.forEach(async (channel, id) => {
+      message.channel.overwritePermissions(muteRole, {
+        SEND_MESSAGES: false,
+        ADD_REACTIONS: false
+      });
+    });
+        message.guild.member(mutePerson).addRole(muteRole);
+        let muteEmbed = new Discord.RichEmbed()
+        .setAuthor(`${mutePerson.username}#${mutePerson.discriminator}`,mutePerson.avatarURL)
+        .setTitle(`You have been muted in ${message.guild.name}`)
+        .setThumbnail(message.guild.iconURL)
+        .addField('- Muted By:',message.author,true)
+        .addField('- Reason:',muteReason,true)
+        .addField('- Duration:',`${mmss(mmss(time), {long: true})}`)
+        .setFooter(message.author.username,message.author.avatarURL);
+        message.guild.member(mutePerson).sendMessage(muteEmbed)
+        message.channel.send(`**- Done!, I muted: ${mutePerson}**`)
+        .then(() => { setTimeout(() => {
+           message.guild.member(mutePerson).removeRole(muteRole);
+       }, mmss(time));
+    });
+    }
+})
+
+
+client.on('message', message => {
+    if (message.content === "-newroles") {
+    if(!message.channel.guild) return message.channel.send('**This Command Only For Servers !**')
+            if (!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send(`**${message.author.username} You Dont Have** ``MANAGE_ROLES`` **Premission**`);
+
+                     message.guild.createRole({ name: "Owner", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "Co-Owner", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "ADMIN", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "Manager", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "MOD", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "HELPER", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "MVP+", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "MVP", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "VIP+", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "VIP", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "BOTS", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "Members", color: "#ffffff", permissions: [] })
+        
+
+message.channel.sendMessage('**الرجاء الانتظار ريث ما يتم صناعه الرتب **')
+}
+});
+
+
+client.on('message', message => {
+    if (message.content === "+setrooms") {
+    if(!message.channel.guild) return message.channel.send('**This Command Only For Servers !**')
+            if (!message.member.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`**${message.author.username} You Dont Have** ``MANAGE_CHANNELS`` **Premission**`);
+
+        
+     message.guild.createChannel('Public', 'voice')
+     message.guild.createChannel('General', 'voice')
+     message.guild.createChannel('Private', 'voice')
+     message.guild.createChannel('YOUTUBER', 'voice')
+     message.guild.createChannel('Hypixel', 'voice')
+     message.guild.createChannel('CubeCraft', 'voice')
+     message.guild.createChannel('MinePLex', 'voice')
+ message.guild.createChannel('VIP', 'voice')
+     message.guild.createChannel('VIP+', 'voice')
+     message.guild.createChannel('MVP', 'voice')
+     message.guild.createChannel('MVP+', 'voice')
+     message.guild.createChannel('😴sleep', 'voice')
+          message.guild.createChannel('༆كَبّـآرَ آلَشّـخٌـصِـيّآتُ༆', 'voice')
+     message.guild.createChannel('welcome', 'text')
+     message.guild.createChannel('news', 'text')
+     message.guild.createChannel('rules', 'text')
+     message.guild.createChannel('chat', 'text')
+     message.guild.createChannel('Youtube', 'text')
+     message.guild.createChannel('achivement', 'text')
+     message.guild.createChannel('ads', 'text')
+     message.guild.createChannel('log', 'text')
+
+
+message.channel.sendMessage('**الرجاء الانتظار ريث ما يتم صناعة السيرفر**')
+}
+});
+
+
+
+client.on("guildMemberAdd", member => {
+let welcomer = member.guild.channels.find("name","『welcome』");
+      if(!welcomer) return;
+      if(welcomer) {
+         moment.locale('ar-ly');
+         var h = member.user;
+        let norelden = new Discord.RichEmbed()
+        .setColor('RANDOM')
+        .setThumbnail(h.avatarURL)
+        .setAuthor(h.username,h.avatarURL)
+        .addField(': تاريخ دخولك الدسكورد',`${moment(member.user.createdAt).format('D/M/YYYY h:mm a')} **\n** \`${moment(member.user.createdAt).fromNow()}\``,true)            
+         .addField(': تاريخ دخولك السيرفر',`${moment(member.joinedAt).format('D/M/YYYY h:mm a ')} \n\`\`${moment(member.joinedAt).startOf(' ').fromNow()}\`\``, true)      
+         .setFooter(`${h.tag}`,"https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif")
+     welcomer.send({embed:norelden});          
+               
+ 
+      }
+      });
+
+client.on('message', message => {
+if(message.content.startsWith('-moves')) {
+ if (!message.member.hasPermission("MOVE_MEMBERS")) return message.channel.send('**لايوجد لديك صلاحية سحب الأعضاء**');
+   if(!message.guild.member(client.user).hasPermission("MOVE_MEMBERS")) return message.reply("**لايوجد لدي صلاحية السحب**");
+if (message.member.voiceChannel == null) return message.channel.send(`**الرجاء الدخول لروم صوتي**`)
+ var author = message.member.voiceChannelID;
+ var m = message.guild.members.filter(m=>m.voiceChannel)
+ message.guild.members.filter(m=>m.voiceChannel).forEach(m => {
+ m.setVoiceChannel(author)
+ })
+ message.channel.send(`**تم سحب جميع الأعضاء إليك**`)
+
+
+ }
+   });
+
+
+client.on('message', message => {
+if (message.content.startsWith('-arole')) {
+             if(!message.channel.guild) return message.reply('**Commands in the server**');
+        if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply('⚠ **You do not have permissions**');
+        let args = message.content.split(" ").slice(1);
+            message.guild.createRole({
+                name : args.join(' '),
+                permissions : [1]
+            }).then(function(role){
+        return message.reply('✅ **Added a Role**');
+                message.addRole(role)
+            })
+
+}
+});
+
+
+const moment = require('moment');
+
+client.on("guildMemberAdd", member => {
+let welcomer = member.guild.channels.find("name","『welcome』");
+      if(!welcomer) return;
+      if(welcomer) {
+         moment.locale('ar-ly');
+         var h = member.user;
+        let norelden = new Discord.RichEmbed()
+        .setColor('RANDOM')
+        .setThumbnail(h.avatarURL)
+        .setAuthor(h.username,h.avatarURL)
+        .addField(': تاريخ دخولك الدسكورد',`${moment(member.user.createdAt).format('D/M/YYYY h:mm a')} **\n** \`${moment(member.user.createdAt).fromNow()}\``,true)            
+         .addField(': تاريخ دخولك السيرفر',`${moment(member.joinedAt).format('D/M/YYYY h:mm a ')} \n\`\`${moment(member.joinedAt).startOf(' ').fromNow()}\`\``, true)      
+         .setFooter(`${h.tag}`,"https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif")
+     welcomer.send({embed:norelden});          
+               
+ 
+      }
+      });
 
 
 
