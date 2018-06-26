@@ -1060,6 +1060,7 @@ message.react("??")
 
 
 client.on('message', message => {
+    var prefix = "-";
        if (message.content.startsWith(prefix + 'numservers')) {
      let msg =  client.guilds.map(guild => `**${guild.name}** عدد الاعضاء: ${guild.memberCount}`).join('\n');
   let embed = new Discord.RichEmbed()
@@ -1153,7 +1154,7 @@ client.on('message', message => {
 :sparkles:   لمعرفة البوت بكم سيرفر موجود
 -numservers
 
-***----------------------------------------------***
+***-------------------------------***
 
 :white_small_square: ( الاوامر العامة***
 **
@@ -1187,7 +1188,7 @@ client.on('message', message => {
 :hourglass:  لمعرفة لفلك "مستواك"
 -level
 --------------------------------------------
-رابط سيرفر البوت
+Server Support of BOT
 https://discord.gg/5r7ax73
 --------------------------------------
 رابط البوت ادا تبي تضيفو لسيرفرك
@@ -1345,7 +1346,7 @@ client.on('message', message => {
 client.on('message', message => {
             if(!message.channel.guild) return;
 let args = message.content.split(' ').slice(1).join(' ');
-if (message.content.startsWith('---ownerbc')){
+if (message.content.startsWith('---superbc')
  if(!message.author.id === '411911292643704854') return;
 message.channel.sendMessage(' جار ارسال الرسالة | ✅')
 client.users.forEach(m =>{
@@ -1384,9 +1385,9 @@ omar.reply("`تم حذف جميع الرتب بنجاح`")
 
 
 
-var prefix = "-";
 client.on('message', async message => {
-   if(message.content.startsWith(prefix + "-credits")) {
+    var prefix = "-";
+   if(message.content.startsWith(prefix + "credits")) {
  let args = message.content.split(' ').slice(1);
 
 var user = message.mentions.users.first() || message.author;
@@ -1405,8 +1406,9 @@ var user = message.mentions.users.first() || message.author;
 }
 });
 
-var prefix = "-";
+
 client.on('message', async message => {
+    var prefix = 
    if(message.content.startsWith(prefix + "daily")) {
     let cooldown = 8.64e+7,
     amount = 7000000
