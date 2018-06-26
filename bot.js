@@ -1402,7 +1402,7 @@ omar.reply("`تم حذف جميع الرتب بنجاح`")
 });
 
 
-var prefix = "-"
+
 client.on('message', message => {
 
   if (message.content.startsWith( prefix + "sug")) {
