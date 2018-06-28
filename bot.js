@@ -1123,25 +1123,25 @@ client.on('message', message => {
 -ownerbot
 
 
-:small_orange_diamond:   جعل البوت يكتب يلي تكتبه
+جعل البوت يكتب يلي تكتبه
 -say
-:small_orange_diamond:  لمسح الشات
+لمسح الشات
 -clear
-:white_check_mark:  للباند
+للباند
 -ban
-:white_check_mark:  للطرد
+للطرد
 -kick
-:loudspeaker:  لارسال رسالة لجميع اعضاء السيرفر
+لارسال رسالة لجميع اعضاء السيرفر
 -bc
-:speaker:  لأعطاء شخص ميوت بالسيرفر - يلزم ان يكون بالسيرفر رتبة Muted
+لأعطاء شخص ميوت بالسيرفر - يلزم ان يكون بالسيرفر رتبة Muted
 -mute
-:loud_sound:  لفك الميوت عن شخص
+ لفك الميوت عن شخص
 -unmute
-:roller_coaster:  لمعرفة عدد بوتات السيرفر
+لمعرفة عدد بوتات السيرفر
 -allbots
-:printer:   لعمل اقتراح | لازم روم اسمه ➦suggestions
+لعمل اقتراح | لازم روم اسمه ➦suggestions
 -sug
-:sparkles:   لمعرفة البوت بكم سيرفر موجود
+لمعرفة البوت بكم سيرفر موجود
 -numservers
 
 ***-------------------------------***
@@ -1178,35 +1178,34 @@ client.on('message', message => {
 
 :white_small_square: ( الاوامر العامة***
 **
-:small_orange_diamond:  لفتح المصحف
+لفتح المصحف
 -quran | !قران
-:floppy_disk:  لمعرفة حالة البوت
+لمعرفة حالة البوت
 -bot
-:small_orange_diamond:  لمعرفة حالة الاعضاء بالسيرفر
+لمعرفة حالة الاعضاء بالسيرفر
 -mb
-:small_blue_diamond:  لرؤية صورة اي واحد لازم منشن
+لرؤية صورة اي واحد لازم منشن
 -avatar
-:small_blue_diamond:  لدعوة البوت لسيرفرك
+لدعوة البوت
 -inv
-:two_men_holding_hands:  لطلب الزواج هههه
+لطلب الزواج هههه
 الرجاء عدم استخدام الامر لانه غير مكتمل و يطفئ البوت
 -marry
-:small_blue_diamond:  معلومات الشخص
+معلومات الشخص
 -id
-:small_blue_diamond:  لاستخدام الترجمة
+لاستخدام الترجمة
 -tr
-:battery:  امعرفة سرعة اتصال البوت
+امعرفة سرعة اتصال البوت
 -ping
-:small_blue_diamond:  لعبة لو خيروك
+لعبة لو خيروك
 -لو خيروك
-:diamonds:  لتغيير اللون | ممكن مو شغال لانو قيد التطوير!!
+لتغيير اللون | ممكن مو شغال لانو قيد التطوير!!
 -الوان
-:small_blue_diamond:  أسئلة حول ماينكرافت
+أسئلة حول ماينكرافت
 -minecraft
-:small_blue_diamond:  لعرض سكنات ماينكرافت
+لعرض سكنات ماينكرافت
 -mcskin
-:hourglass:  لمعرفة لفلك "مستواك"
--level
+
 --------------------------------------------
 Server Support of BOT
 https://discord.gg/5r7ax73
@@ -1526,7 +1525,7 @@ message.channel.sendMessage('**الرجاء الانتظار ريث ما يتم 
 
 
 client.on('message', message => {
-    if (message.content === "+setrooms") {
+    if (message.content === "-setrooms") {
     if(!message.channel.guild) return message.channel.send('**This Command Only For Servers !**')
             if (!message.member.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`**${message.author.username} You Dont Have** ``MANAGE_CHANNELS`` **Premission**`);
 
