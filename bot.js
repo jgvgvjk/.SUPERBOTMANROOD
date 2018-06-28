@@ -207,6 +207,25 @@ client.on('message', msg => {
   msg.reply('انت حيوان')
 });
 
+client.on("guildMemberAdd", member => {
+let welcomer = member.guild.channels.find("name","");
+      if(!welcomer) return;
+      if(welcomer) {
+         moment.locale('ar-ly');
+         var h = member.user;
+        let norelden = new Discord.RichEmbed()
+        .setColor('RANDOM')
+        .setThumbnail(h.avatarURL)
+        .setAuthor(h.username,h.avatarURL)
+        .addField(': تاريخ دخولك الدسكورد',`${moment(member.user.createdAt).format('D/M/YYYY h:mm a')} **\n** \`${moment(member.user.createdAt).fromNow()}\``,true)            
+         .addField(': تاريخ دخولك السيرفر',`${moment(member.joinedAt).format('D/M/YYYY h:mm a ')} \n\`\`${moment(member.joinedAt).startOf(' ').fromNow()}\`\``, true)      
+         .setFooter(`${h.tag}`,"https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif")
+     welcomer.send({embed:norelden});          
+               
+ 
+      }
+      });
+
 
 
 
@@ -1591,6 +1610,39 @@ if (message.content.startsWith('-arole')) {
             })
 
 }
+});
+
+
+
+client.on('message', async message => {
+  var prefix = "-";
+    let date = moment().format('Do MMMM YYYY , hh:mm');
+    let User = message.mentions.users.first();
+    let Reason = message.content.split(" ").slice(3).join(" ");
+    let messageArray = message.content.split(" ");
+    let time = messageArray[2];
+    if(message.content.startsWith(prefix + "tempban")) {
+       if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.channel.send("**- You don't have the needed permissions!**");
+       if(!User) message.channel.send("**- Mention someone!**");
+       if(User.id === client.user.id) return message.channel.send("**- You cannot ban me!**");
+       if(User.id === message.guild.owner.id) return message.channel.send("**- You cannot ban the owner of the server!**");
+       if(!time) return message.channel.send("**- Supply a duration!**");
+       if(!time.match(/[1-7][s,m,h,d,w]/g)) return message.channel.send('**- Supply a real time!**');
+       if(!Reason) message.channel.send("**- Supply a reason!**");
+       let banEmbed = new Discord.RichEmbed()
+       .setAuthor(`You have been banned from ${message.guild.name} !`)
+       .setThumbnail(message.guild.iconURL || message.guild.avatarURL)
+       .addField('- Banned By: ',message.author.tag,true)
+       .addField('- Reason:',Reason,true)
+       .addField('- Banned At:',date,true)
+       .addField('- Duration:',time,true)
+       .setFooter(message.author.tag,message.author.avatarURL);
+       User.sendMessage({embed: banEmbed}).then(() => message.guild.member(User).ban({reason: Reason}))
+       .then(() => message.channel.send(`**# Done! I banned: ${User}**`)).then(() => { setTimeout(() => {
+           message.guild.unban(User);
+       }, mmss(time));
+    });
+   } 
 });
 
 
