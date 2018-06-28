@@ -1223,6 +1223,7 @@ message.author.sendEmbed(embed)
 });
 
 client.on('message', msg => {
+  var prefix = "-";
       if(!msg.channel.guild) return;
     if(msg.content.startsWith (prefix  + 'help')) {
     msg.reply('**:runner: شيك علي الخاص**');
