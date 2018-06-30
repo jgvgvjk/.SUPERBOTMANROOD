@@ -41,7 +41,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   if(msg.content === 'مرحبا')
-  msg.reply('هلا بيك حبي')
+  msg.reply('مرحبا')
 });
 
 client.on('message', msg => {
@@ -60,116 +60,8 @@ client.on('message', msg => {
 });
 
 client.on('message', msg => {
-  if(msg.content === 'شباب')
-  msg.reply('???')
-});
-
-client.on('message', msg => {
-  if(msg.content === 'ههه')
-  msg.reply('ددووم يا رب')
-});
-
-client.on('message', msg => {
-  if(msg.content === 'هههه')
-  msg.reply('ددووم يا رب')
-});
-
-client.on('message', msg => {
-  if(msg.content === 'ههههه')
-  msg.reply('ددووم يا رب')
-});
-
-client.on('message', msg => {
-  if(msg.content === 'هههههه')
-  msg.reply('ددووم يا رب')
-});
-
-client.on('message', msg => {
-  if(msg.content === 'ههههههه')
-  msg.reply('ددووم يا رب')
-});
-
-client.on('message', msg => {
-  if(msg.content === 'هههههههه')
-  msg.reply('ددووم يا رب')
-});
-client.on('message', msg => {
-  if(msg.content === 'ههههههههه')
-  msg.reply('ددووم يا رب')
-});
-client.on('message', msg => {
-  if(msg.content === 'هههههههههه')
-  msg.reply('ددووم يا رب')
-});
-client.on('message', msg => {
-  if(msg.content === 'ههههههههههه')
-  msg.reply('ددووم يا رب')
-});
-client.on('message', msg => {
-  if(msg.content === 'هههههههههههه')
-  msg.reply('ددووم يا رب')
-});
-client.on('message', msg => {
-  if(msg.content === 'ههههههههههههه')
-  msg.reply('ددووم يا رب')
-});
-client.on('message', msg => {
-  if(msg.content === 'هههههههههههههه')
-  msg.reply('ددووم يا رب')
-});
-client.on('message', msg => {
-  if(msg.content === 'ههههههههههههههه')
-  msg.reply('ددووم يا رب')
-});
-
-client.on('message', msg => {
-  if(msg.content === 'hhh')
-  msg.reply('ددووم يا رب')
-});
-
-client.on('message', msg => {
-  if(msg.content === 'hhh')
-  msg.reply('ددووم يا رب')
-});
-
-client.on('message', msg => {
-  if(msg.content === 'hhhh')
-  msg.reply('ددووم يا رب')
-});
-
-client.on('message', msg => {
-  if(msg.content === 'hhhhh')
-  msg.reply('ددووم يا رب')
-});
-
-client.on('message', msg => {
-  if(msg.content === 'hhhhhh')
-  msg.reply('ددووم يا رب')
-});
-
-client.on('message', msg => {
-  if(msg.content === 'hhhhhhh')
-  msg.reply('ددووم يا رب')
-});
-
-client.on('message', msg => {
-  if(msg.content === 'hhhhhhhh')
-  msg.reply('ددووم يا رب')
-});
-
-client.on('message', msg => {
-  if(msg.content === 'hhhhhhhhh')
-  msg.reply('ددووم يا رب')
-});
-
-client.on('message', msg => {
   if(msg.content === 'hi')
   msg.reply('Hi !')
-});
-
-client.on('message', msg => {
-  if(msg.content === 'hi guys')
-  msg.reply('hi my friend')
 });
 
 client.on('message', msg => {
@@ -182,10 +74,6 @@ client.on('message', msg => {
   msg.reply('np')
 });
 
-client.on('message', msg => {
-  if(msg.content === 'thx')
-  msg.reply('np')
-});
 
 client.on('message', msg => {
   if(msg.content === 'زق')
@@ -208,7 +96,7 @@ client.on('message', msg => {
 });
 
 client.on("guildMemberAdd", member => {
-let welcomer = member.guild.channels.find("name","");
+let welcomer = member.guild.channels.find("name","『¤welcome¤』");
       if(!welcomer) return;
       if(welcomer) {
          moment.locale('ar-ly');
