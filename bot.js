@@ -1115,7 +1115,7 @@ client.on('message', message => {
 
 --------------------------------------------
 Server Support of BOT
-https://discord.gg/5r7ax73
+https://discord.gg/jCpGZyv
 --------------------------------------
 رابط البوت ادا تبي تضيفو لسيرفرك
 سوي -inv
